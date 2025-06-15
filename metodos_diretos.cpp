@@ -3,11 +3,16 @@
 
 using namespace std;
 
+struct Troca {
+    int colunaA;
+    int colunaB;
+};
 
 vector<double> eliminacaoGauss(vector<vector<double>> A, vector<double> b)
 {
     int tam = b.size();
     double M = 0.0;
+    vector<Troca> trocas;
 
     for (int k = 0; k < tam - 1; k++){
         
@@ -30,24 +35,15 @@ vector<double> eliminacaoGauss(vector<vector<double>> A, vector<double> b)
             swap(A[k], A[pontLinha]);
             swap(b[k], b[pontLinha]);
         } 
-        else if(pontColuna != k){ 
+        else if(pontColuna != k){ // troca de coluna
             for(int x = k; x < tam; x++){
                 swap(A[x][pontColuna], A[x][k]);
+                Troca atual = {pontColuna, k};
+                trocas.push_back(atual); // vetor de troca atualizado
             }
             swap(A[k], A[pontLinha]);
             swap(b[k], b[pontLinha]);
         }
-
-        // pivo atualizado, agora devo lidar com as consequencias da troca de colunas
-
-        /* //pivoteamento parcial
-        for (int x = k+1; x < tam; x++){ 
-            if(fabs(A[x][k]) > fabs(A[k][k])){
-                swap(A[x], A[k]);
-                swap(b[x], b[k]);
-            }
-        }
-        */
 
         // eliminação de Gauss
         for (int i = k+1; i < tam; i++){ //atualiza valores da linha  
@@ -61,6 +57,11 @@ vector<double> eliminacaoGauss(vector<vector<double>> A, vector<double> b)
     }
     
     vector<double> sol = triangularSup(A, b);
+
+    // aqui devo desfazer as trocas  do pivoteamento total
+    for (int i = trocas.size() - 1; i >= 0; i--){
+        swap(sol[trocas[i].colunaA], sol[trocas[i].colunaB]);
+    }
 
     return  sol;
 }
