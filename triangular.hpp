@@ -2,8 +2,8 @@
 #define TRIANGULAR_H
 
 #include <vector>
+using namespace std;
 
-std::vector<double> triangularSup(std::vector<std::vector<double>>& A, std::vector<double>& b);
-std::vector<double> triangularInf(std::vector<std::vector<double>>& A, std::vector<double>& b);
-
+vector<double> triangularSup(vector<vector<double>>& A, vector<double>& b);
+vector<double> triangularInf(vector<vector<double>>& A, vector<double>& b);
 #endif // TRIANGULAR_H

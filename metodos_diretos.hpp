@@ -1,9 +1,10 @@
 #ifndef METODOS_DIRETOS_HPP
 #define METODOS_DIRETOS_HPP
 
-#include <vector> // Necessário para std::vector
+#include <vector> 
+using namespace std;
 
-// Declaração da função eliminacaoGauss
-std::vector<double> eliminacaoGauss(std::vector<std::vector<double>> A, std::vector<double> b);
+vector<double> eliminacaoGauss(vector<vector<double>> A, vector<double> b);
+vector<double> decLU(vector<vector<double>> A, vector<double> b);
 
-#endif // METODOS_DIRETOS_HPP
+#endif
