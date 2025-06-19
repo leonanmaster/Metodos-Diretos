@@ -26,7 +26,7 @@ vector <double> triangularInf(vector<vector<double>> &A, vector<double> &b)
     
     for (int k = 0; k <= tam-1; k++){
         soma = b[k];
-        for (int j = 0; j <= k; j++){
+        for (int j = 0; j < k; j++){
             soma = soma - (A[k][j] * x[j]);
         }
         x[k] = soma / A[k][k];

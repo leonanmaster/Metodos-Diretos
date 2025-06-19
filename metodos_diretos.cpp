@@ -21,7 +21,7 @@ vector<double> eliminacaoGauss(vector<vector<double>> A, vector<double> b)
         int pontLinha = k;
         int pontColuna = k;
         
-        for (int x = k; x < tam; x++){ // encontrando o maior valor
+         for (int x = k; x < tam; x++){ // encontrando o maior valor
             for (int y = k; y < tam; y++){
                 if (fabs(A[x][y]) > fabs(pivoAtual)){
                     pontLinha = x;
@@ -44,6 +44,7 @@ vector<double> eliminacaoGauss(vector<vector<double>> A, vector<double> b)
             swap(A[k], A[pontLinha]);
             swap(b[k], b[pontLinha]);
         }
+        
 
         // eliminação de Gauss
         for (int i = k+1; i < tam; i++){ //atualiza valores da linha  
@@ -54,8 +55,16 @@ vector<double> eliminacaoGauss(vector<vector<double>> A, vector<double> b)
             }
             b[i] = b[i] - (M * b[k]);
         }
+
     }
     
+    /*for (int i = 0; i < tam; i++){
+        for(int j = 0; j < tam; j++){
+            cout << A[i][j] << " ";
+        }
+        cout << "\n";
+    }*/
+
     vector<double> sol = triangularSup(A, b);
 
     // aqui devo desfazer as trocas  do pivoteamento total
@@ -64,4 +73,56 @@ vector<double> eliminacaoGauss(vector<vector<double>> A, vector<double> b)
     }
 
     return  sol;
+}
+
+vector<double> decLU(vector<vector<double>> A, vector<double> b){
+    int tam = b.size();
+    
+    vector<vector<double>> U = A;
+    vector<vector<double>> L(tam,vector<double>(tam,0));
+
+    for (int i = 0; i < tam; i++){
+        for(int j = 0; j < tam; j++){
+            if (i == j){
+                L[i][j] = 1;
+            }
+        }
+    }
+
+    double M = 0.0;
+    for (int k = 0; k < tam - 1; k++){
+        for (int i = k+1; i < tam; i++){ //atualiza valores da linha  
+            M = U[i][k] / U[k][k];
+            L[i][k] = M;
+            U[i][k] = 0.0; //evita erro de precisão, o calculo deve ser sempre igual a 0
+            for (int j = k+1; j < tam; j++){ //atualiza os valores da linha que não estão abaixo do pivo
+                U[i][j] = U[i][j] - (M * U[k][j]);
+            }
+        }
+    }
+
+    //Falta o pivoteamento total
+
+    vector<double> y = triangularInf(L,b);
+    vector<double> sol = triangularSup(U,y);
+
+    for (int i = 0; i < tam; i++){
+        for(int j = 0; j < tam; j++){
+            cout << U[i][j] << " ";
+        }
+    cout << "\n";
+    }
+    
+    cout << "\n";
+
+    for (int i = 0; i < tam; i++){
+        for(int j = 0; j < tam; j++){
+            cout << L[i][j] << " ";
+        }
+    cout << "\n";
+    }
+
+    cout << "\n";
+    
+    return sol; 
 }
