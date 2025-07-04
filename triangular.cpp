@@ -34,3 +34,20 @@ vector <double> triangularInf(vector<vector<double>> &A, vector<double> &b)
 
     return x;
 }
+
+vector <double> triangularInfLU(vector<vector<double>> &A, vector<double> &b)
+{
+    int tam = b.size();
+    vector<double> x (tam, 0.0);
+    double soma = 0.0;
+    
+    for (int k = 0; k <= tam-1; k++){
+        soma = b[k];
+        for (int j = 0; j < k; j++){
+            soma = soma - (A[k][j] * x[j]);
+        }
+        x[k] = soma;
+    }
+
+    return x;
+}
