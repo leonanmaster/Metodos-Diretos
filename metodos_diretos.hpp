@@ -8,6 +8,7 @@ vector<double> eliminacaoGaussPT(vector<vector<double>> A, vector<double> b);
 vector<double> eliminacaoGaussPP(vector<vector<double>> A, vector<double> b);
 vector<double> decLU(vector<vector<double>> A, vector<double> b);
 vector<vector<double>> decLUInversa(vector<vector<double>> A);
+vector<vector<double>> cholesky(vector<vector<double>> A);
 
 
 #endif

@@ -192,3 +192,44 @@ vector<vector<double>> decLUInversa(vector<vector<double>> A)
 
     return Inv;
 }
+
+vector<vector<double>> cholesky(vector<vector<double>> A)
+{
+    int tam = A.size();
+    vector<vector<double>> C = A;
+
+    for(int j = 0; j < tam; j++) { 
+        
+        for(int i = j; i < tam; i++) {
+
+            double soma = 0.0;
+
+            for(int k = 0; k < j; k++) {
+                soma = soma + C[i][k]*C[j][k];
+            }
+
+            C[i][j] = C[i][j] - soma;
+        }
+        
+        if(C[j][j] <= 0) {
+            cout << "A matriz não é definida positiva.";
+            return A;
+        }
+
+        double diagonal_val = sqrt(C[j][j]);
+        for(int i = j; i < tam; i++) {
+            C[i][j] = C[i][j]/diagonal_val;
+        }
+                
+    }
+
+    for (int i = 0; i < tam; i++) {
+        for (int j = i + 1; j < tam; j++) {
+            C[i][j] = 0.0;
+        }
+    }
+
+    cout << "A é simétrica definida positiva" << endl;
+    return C;
+     
+}

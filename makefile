@@ -1,8 +1,8 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall
 TARGET = metodos_diretos_app
-SOURCES = main.cpp metodos_diretos.cpp triangular.cpp
-HEADERS = triangular.hpp metodos_diretos.hpp # Adicione o novo cabeçalho aqui
+SOURCES = main.cpp metodos_diretos.cpp triangular.cpp QR.cpp
+HEADERS = triangular.hpp metodos_diretos.hpp QR.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
 $(TARGET): $(OBJECTS)
